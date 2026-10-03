@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>FORWARD // By Hybrid Performance Centre — Early Access Waitlist</title>
+  <meta name="description" content="An operating system for human capacity. Auto-regulated performance architecture for demanding careers. Join the private waitlist.">
+  
+  <!-- OpenGraph / Social Meta Tags -->
+  <meta property="og:title" content="FORWARD // Hybrid Performance Centre">
+  <meta property="og:description" content="What if progress wasn't just a number? An operating system for human capacity. Join the early access waitlist.">
+  <meta property="og:type" content="website">
+  
+  <style>
+    /* Reset & Base System */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0D0D0C;
+      --card-bg: #131312;
+      --input-bg: #191918;
+      --border: #222220;
+      --border-focus: #FF6B2C;
+      --text-white: #F4F4F0;
+      --text-muted: #8E8E89;
+      --text-dim: #555550;
+      --orange: #FF6B2C;
+      --orange-glow: rgba(255, 107, 44, 0.2);
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Courier, monospace;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-white);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Ambient Architectural Grid Background */
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(29, 29, 26, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(29, 29, 26, 0.45) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Subtle Radial Glow */
+    .glow-bg {
+      position: fixed;
+      top: -120px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255, 107, 44, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Main Container */
+    .container {
+      width: 100%;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    /* Navigation Bar */
+    header {
+      padding: 32px 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .brand-arrow {
+      width: 28px;
+      height: 28px;
+      fill: var(--orange);
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: var(--text-white);
+      line-height: 1;
+    }
+
+    .brand-sub {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 2.5px;
+      margin-top: 4px;
+      text-transform: uppercase;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      background: rgba(20, 20, 19, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: var(--orange);
+      box-shadow: 0 0 10px var(--orange);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.4; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.15); }
+      100% { opacity: 0.4; transform: scale(0.9); }
+    }
+
+    /* Hero Section */
+    .hero-section {
+      padding: 64px 0 40px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 56px;
+      align-items: center;
+      flex: 1;
+    }
+
+    @media (max-width: 860px) {
+      .hero-section {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 40px 0 32px;
+      }
+    }
+
+    /* Left Copy Column */
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      color: var(--orange);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--orange);
+    }
+
+    .headline {
+      font-size: 56px;
+      font-weight: 900;
+      line-height: 1.06;
+      letter-spacing: -2px;
+      color: var(--text-white);
+      margin-bottom: 24px;
+    }
+
+    .headline-orange {
+      color: var(--orange);
+    }
+
+    @media (max-width: 640px) {
+      .headline {
+        font-size: 38px;
+        letter-spacing: -1.2px;
+      }
+    }
+
+    .sub-copy {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      max-width: 520px;
+    }
+
+    /* Curiosity Micro Points */
+    .curiosity-points {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      border-left: 2px solid var(--border);
+      padding-left: 18px;
+    }
+
+    .point-item {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .point-num {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--orange);
+    }
+
+    .point-text {
+      font-size: 14px;
+      color: #B4B4AD;
+      font-weight: 500;
+    }
+
+    /* Right Form Card */
+    .waitlist-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 36px 32px;
+      position: relative;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Architectural Corner Brackets */
+    .corner-bracket {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--orange);
+      pointer-events: none;
+      opacity: 0.8;
+    }
+    .corner-tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+    .corner-tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+    .corner-bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+    .corner-br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+    .card-header {
+      margin-bottom: 24px;
+    }
+
+    .card-title {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: var(--text-white);
+      margin-bottom: 6px;
+    }
+
+    .card-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Form Fields */
+    .form-group {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .form-input {
+      width: 100%;
+      height: 48px;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      color: var(--text-white);
+      padding: 0 16px;
+      font-size: 15px;
+      font-family: var(--font-sans);
+      outline: none;
+      transition: all 0.2s ease;
+      border-radius: 0;
+    }
+
+    .form-input::placeholder {
+      color: var(--text-dim);
+    }
+
+    .form-input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 1px var(--border-focus);
+      background: #1C1C1B;
+    }
+
+    .form-input.error {
+      border-color: #E53935;
+    }
+
+    .error-msg {
+      font-size: 11px;
+      color: #FF5252;
+      display: none;
+    }
+
+    /* Submit Button */
+    .btn-submit {
+      width: 100%;
+      height: 52px;
+      background: var(--orange);
+      color: #0D0D0C;
+      border: none;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+      margin-top: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-submit:hover {
+      background: #FF7D45;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(255, 107, 44, 0.35);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Card Micro Privacy */
+    .card-footer-note {
+      margin-top: 18px;
+      font-size: 11px;
+      color: var(--text-dim);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* Success State */
+    .success-container {
+      display: none;
+      text-align: center;
+      padding: 24px 10px;
+    }
+
+    .success-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(255, 107, 44, 0.12);
+      border: 1.5px solid var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: var(--orange);
+      font-size: 26px;
+    }
+
+    .success-title {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--text-white);
+      margin-bottom: 8px;
+    }
+
+    .success-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .queue-badge {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #1A1A18;
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--orange);
+      margin-bottom: 20px;
+    }
+
+    .queue-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .queue-id {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--orange);
+      letter-spacing: 1px;
+    }
+
+    /* Footer */
+    footer {
+      padding: 32px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+    }
+
+    .admin-link {
+      color: var(--text-dim);
+      text-decoration: none;
+      cursor: pointer;
+      padding: 4px 8px;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .admin-link:hover {
+      color: var(--text-muted);
+      border-color: var(--border);
+    }
+
+    /* Leads Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-card {
+      background: #141413;
+      border: 1px solid var(--border);
+      width: 100%;
+      max-width: 680px;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      position: relative;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .leads-table-wrap {
+      overflow-y: auto;
+      flex: 1;
+      margin-bottom: 20px;
+    }
+
+    .leads-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      font-family: var(--font-mono);
+    }
+
+    .leads-table th, .leads-table td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid #1E1E1C;
+    }
+
+    .leads-table th {
+      color: var(--orange);
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .btn-secondary {
+      padding: 10px 18px;
+      background: #20201E;
+      border: 1px solid var(--border);
+      color: var(--text-white);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-export {
+      padding: 10px 18px;
+      background: var(--orange);
+      color: #0D0D0C;
+      border: none;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Backdrop -->
+  <div class="grid-bg"></div>
+  <div class="glow-bg"></div>
+
+  <div class="container">
+    <!-- Top Nav Header -->
+    <header>
+      <a href="#" class="brand-lockup">
+        <!-- Forward Razor Arrow Mark -->
+        <svg class="brand-arrow" viewBox="0 0 48 48">
+          <path d="M0 36 L26 10 L16 10 L16 0 L42 0 L48 6 L48 32 L38 32 L38 22 L10 48 Z"/>
+        </svg>
+        <div class="brand-text">
+          <span class="brand-title">FORWARD</span>
+          <span class="brand-sub">HYBRID PERFORMANCE CENTRE</span>
+        </div>
+      </a>
+
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        <span>EARLY ACCESS WAITLIST</span>
+      </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="hero-section">
+      <!-- Left Editorial Hook Column -->
+      <div class="hero-copy">
+        <div class="eyebrow">PRE-LAUNCH TRANSMISSION // 001</div>
+        
+        <h1 class="headline">
+          WHAT IF PROGRESS<br>
+          WASN’T JUST A<br>
+          <span class="headline-orange">NUMBER?</span>
+        </h1>
+
+        <p class="sub-copy">
+          Most fitness programs reduce human capacity to an arbitrary scale weight and a 6-day bro split. Forward is an auto-regulated performance architecture built specifically for demanding careers.
+        </p>
+
+        <div class="curiosity-points">
+          <div class="point-item">
+            <span class="point-num">01 //</span>
+            <span class="point-text">Zero Dogmatic Bro Splits. Workload scales with your real recovery budget.</span>
+          </div>
+          <div class="point-item">
+            <span class="point-num">02 //</span>
+            <span class="point-text">Engineered for desk workers, executives &amp; corporate athletes.</span>
+          </div>
+          <div class="point-item">
+            <span class="point-num">03 //</span>
+            <span class="point-text">Private onboarding cohort strictly limited to preserve coaching depth.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Lead Capture Card -->
+      <div class="waitlist-card">
+        <div class="corner-bracket corner-tl"></div>
+        <div class="corner-bracket corner-tr"></div>
+        <div class="corner-bracket corner-bl"></div>
+        <div class="corner-bracket corner-br"></div>
+
+        <!-- Intake Form State -->
+        <form id="waitlistForm">
+          <div class="card-header">
+            <h2 class="card-title">Join The Private Waitlist</h2>
+            <p class="card-subtitle">Reserve your priority onboarding window before public release.</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="fullName">Full Name</label>
+            <input type="text" id="fullName" class="form-input" placeholder="e.g. Alex Morgan" autocomplete="name" required>
+            <span class="error-msg" id="nameError">Please enter your full name.</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="phone">Phone / WhatsApp</label>
+            <input type="tel" id="phone" class="form-input" placeholder="e.g. +91 98765 43210" autocomplete="tel" required>
+            <span class="error-msg" id="phoneError">Please enter a valid phone number.</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Work or Personal Email</label>
+            <input type="email" id="email" class="form-input" placeholder="e.g. alex@company.com" autocomplete="email" required>
+            <span class="error-msg" id="emailError">Please enter a valid email address.</span>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <span>Request Priority Access</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+
+          <p class="card-footer-note">
+            🔒 Strictly confidential. Early access invites and secret onboarding links are released sequentially.
+          </p>
+        </form>
+
+        <!-- Success Confirmation State -->
+        <div class="success-container" id="successState">
+          <div class="success-icon">✓</div>
+          <h2 class="success-title">Access Reserved.</h2>
+          <p class="success-desc">
+            You’ve been added to the private Forward pre-launch queue. Our coaching team will reach out via WhatsApp &amp; Email prior to the public announcement.
+          </p>
+
+          <div class="queue-badge">
+            <div class="queue-label">Waitlist Access Token</div>
+            <div class="queue-id" id="assignedToken">#FWD-0142</div>
+          </div>
+
+          <p class="card-footer-note">
+            Keep notifications enabled on @forwardbyhpc. The rules are changing.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <span>© 2026 FORWARD // HYBRID PERFORMANCE CENTRE. ALL RIGHTS RESERVED.</span>
+      <span class="admin-link" id="adminTrigger" title="Owner Lead Management">DATA VAULT [0]</span>
+    </footer>
+  </div>
+
+  <!-- Admin Modal (For Owner to View & Export Leads) -->
+  <div class="modal-overlay" id="adminModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Waitlist Leads Vault (Local Submissions)</h3>
+        <button class="btn-secondary" id="closeModalBtn" style="padding: 4px 10px;">✕</button>
+      </div>
+      
+      <!-- Google Sheets Auto-Sync Webhook Config -->
+      <div style="background: #191918; border: 1px solid var(--border); border-left: 3px solid var(--orange); padding: 14px 16px; margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="font-family: var(--font-mono); font-size: 11px; font-weight: 800; color: var(--orange); letter-spacing: 1.5px;">GOOGLE SHEETS LIVE AUTO-SYNC</span>
+          <span id="webhookStatusBadge" style="font-family: var(--font-mono); font-size: 11px; color: #777;">[ Local Storage Only ]</span>
+        </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <input type="url" id="webhookInput" placeholder="Paste Google Apps Script Web App URL here (https://script.google.com/macros/s/.../exec)" style="flex: 1; min-width: 260px; height: 38px; background: #0E0E0D; border: 1px solid var(--border); color: var(--text-white); padding: 0 12px; font-size: 12px; font-family: var(--font-mono); outline: none;">
+          <button type="button" id="saveWebhookBtn" class="btn-secondary" style="height: 38px; padding: 0 14px; font-size: 11px;">Save URL</button>
+          <button type="button" id="testWebhookBtn" class="btn-secondary" style="height: 38px; padding: 0 14px; font-size: 11px; color: var(--orange); border-color: rgba(255,107,44,0.4);">Test Sync ⚡</button>
+        </div>
+      </div>
+      <div class="leads-table-wrap">
+        <table class="leads-table">
+          <thead>
+            <tr>
+              <th>TOKEN</th>
+              <th>NAME</th>
+              <th>PHONE</th>
+              <th>EMAIL</th>
+              <th>DATE</th>
+            </tr>
+          </thead>
+          <tbody id="leadsTableBody">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" id="clearLeadsBtn">Clear Data</button>
+        <button class="btn-export" id="exportCsvBtn">Download CSV ↓</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // FORWARD WAITLIST INTAKE LOGIC
+    // =========================================================================
+
+    // Primary Webhook configuration (Saved locally or hardcoded here)
+    const DEFAULT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxJp9KC0L0qHzlOR_LUDqrY8McukCVAeJkHLJP7eGT0FIkvqWUlGpzkslbjpQi9DmEs/exec"; 
+    const WEBHOOK_STORAGE_KEY = "fwd_google_webhook_url";
+    const STORAGE_KEY = "fwd_waitlist_leads_v1";
+
+    function getActiveWebhookUrl() {
+      const stored = localStorage.getItem(WEBHOOK_STORAGE_KEY);
+      if (stored && stored.trim() !== "") {
+        return stored;
+      }
+      return DEFAULT_WEBHOOK_URL;
+    }
+
+    const form = document.getElementById("waitlistForm");
+    const successState = document.getElementById("successState");
+    const submitBtn = document.getElementById("submitBtn");
+    const assignedTokenEl = document.getElementById("assignedToken");
+    const adminTrigger = document.getElementById("adminTrigger");
+    const adminModal = document.getElementById("adminModal");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const leadsTableBody = document.getElementById("leadsTableBody");
+    const exportCsvBtn = document.getElementById("exportCsvBtn");
+    const clearLeadsBtn = document.getElementById("clearLeadsBtn");
+
+    // Fetch existing leads from localStorage
+    function getStoredLeads() {
+      try {
+        const data = localStorage.getItem(STORAGE_KEY);
+        return data ? JSON.parse(data) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    // Save leads to localStorage
+    function saveLeads(leads) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(leads));
+      updateAdminCounter();
+    }
+
+    function updateAdminCounter() {
+      const count = getStoredLeads().length;
+      adminTrigger.textContent = `DATA VAULT [${count}]`;
+    }
+
+    // Initialize counter
+    updateAdminCounter();
+
+    // Form Submission
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const nameInput = document.getElementById("fullName");
+      const phoneInput = document.getElementById("phone");
+      const emailInput = document.getElementById("email");
+
+      const name = nameInput.value.trim();
+      const phone = phoneInput.value.trim();
+      const email = emailInput.value.trim();
+
+      let hasError = false;
+
+      // Validate Name
+      if (name.length < 2) {
+        nameInput.classList.add("error");
+        document.getElementById("nameError").style.display = "block";
+        hasError = true;
+      } else {
+        nameInput.classList.remove("error");
+        document.getElementById("nameError").style.display = "none";
+      }
+
+      // Validate Phone (at least 7 digits)
+      const digitsOnly = phone.replace(/\D/g, "");
+      if (digitsOnly.length < 7) {
+        phoneInput.classList.add("error");
+        document.getElementById("phoneError").style.display = "block";
+        hasError = true;
+      } else {
+        phoneInput.classList.remove("error");
+        document.getElementById("phoneError").style.display = "none";
+      }
+
+      // Validate Email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        emailInput.classList.add("error");
+        document.getElementById("emailError").style.display = "block";
+        hasError = true;
+      } else {
+        emailInput.classList.remove("error");
+        document.getElementById("emailError").style.display = "none";
+      }
+
+      if (hasError) return;
+
+      // UI Loading state
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span>Securing Access...</span>`;
+
+      // Generate realistic sequential token
+      const existing = getStoredLeads();
+      const queueNumber = 100 + existing.length + 1;
+      const token = `#FWD-${String(queueNumber).padStart(4, "0")}`;
+
+      const leadData = {
+        token: token,
+        name: name,
+        phone: phone,
+        email: email,
+        timestamp: new Date().toISOString()
+      };
+
+      // 1. Save to local storage
+      existing.push(leadData);
+      saveLeads(existing);
+
+      // 2. Dispatch to Google Sheets / Webhook if configured
+      const activeWebhook = getActiveWebhookUrl();
+      if (activeWebhook && activeWebhook.trim() !== "") {
+        try {
+          // Mode no-cors enables smooth Google Apps Script redirect execution without browser CORS rejection
+          await fetch(activeWebhook, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(leadData)
+          });
+          console.log("Lead successfully dispatched to Google Sheets Webhook.");
+        } catch (err) {
+          console.warn("Webhook dispatch error:", err);
+        }
+      }
+
+      // Artificial short delay for high-end tactile feel
+      setTimeout(() => {
+        assignedTokenEl.textContent = token;
+        form.style.display = "none";
+        successState.style.display = "block";
+      }, 400);
+    });
+
+    // =========================================================================
+    // OWNER DATA VAULT (MODAL & CSV EXPORT)
+    // =========================================================================
+
+    function renderLeadsTable() {
+      const leads = getStoredLeads();
+      leadsTableBody.innerHTML = "";
+      if (leads.length === 0) {
+        leadsTableBody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#666;">No waitlist submissions yet.</td></tr>`;
+        return;
+      }
+      leads.forEach(l => {
+        const tr = document.createElement("tr");
+        const dateStr = new Date(l.timestamp).toLocaleDateString();
+        tr.innerHTML = `
+          <td style="color:var(--orange); font-weight:800;">${l.token}</td>
+          <td>${escapeHtml(l.name)}</td>
+          <td>${escapeHtml(l.phone)}</td>
+          <td>${escapeHtml(l.email)}</td>
+          <td style="color:#777;">${dateStr}</td>
+        `;
+        leadsTableBody.appendChild(tr);
+      });
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Webhook UI Wiring
+    const webhookInput = document.getElementById("webhookInput");
+    const saveWebhookBtn = document.getElementById("saveWebhookBtn");
+    const testWebhookBtn = document.getElementById("testWebhookBtn");
+    const webhookStatusBadge = document.getElementById("webhookStatusBadge");
+
+    function refreshWebhookUI() {
+      const currentUrl = getActiveWebhookUrl();
+      if (currentUrl && currentUrl.trim() !== "") {
+        webhookInput.value = currentUrl;
+        webhookStatusBadge.textContent = "● GOOGLE SHEETS SYNC ACTIVE";
+        webhookStatusBadge.style.color = "var(--orange)";
+      } else {
+        webhookInput.value = "";
+        webhookStatusBadge.textContent = "[ Local Storage Only ]";
+        webhookStatusBadge.style.color = "#777";
+      }
+    }
+
+    saveWebhookBtn.addEventListener("click", () => {
+      const url = webhookInput.value.trim();
+      if (url) {
+        localStorage.setItem(WEBHOOK_STORAGE_KEY, url);
+        alert("Google Sheets Webhook URL saved successfully!");
+      } else {
+        localStorage.removeItem(WEBHOOK_STORAGE_KEY);
+        alert("Webhook URL cleared. Submissions will be stored in local vault only.");
+      }
+      refreshWebhookUI();
+    });
+
+    testWebhookBtn.addEventListener("click", async () => {
+      const currentUrl = getActiveWebhookUrl();
+      if (!currentUrl) {
+        alert("Please paste your Google Apps Script Web App URL first and click Save!");
+        return;
+      }
+      testWebhookBtn.disabled = true;
+      testWebhookBtn.textContent = "Sending Test...";
+      
+      const testLead = {
+        token: "#FWD-TEST",
+        name: "Test Lead (Verification)",
+        phone: "+91 99999 00000",
+        email: "test@forward.fit",
+        timestamp: new Date().toISOString()
+      };
+
+      try {
+        await fetch(currentUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(testLead)
+        });
+        alert("⚡ Test ping dispatched! Open your Google Sheet now to confirm the row was appended.");
+      } catch (e) {
+        alert("Error sending test: " + e.message);
+      } finally {
+        testWebhookBtn.disabled = false;
+        testWebhookBtn.textContent = "Test Sync ⚡";
+      }
+    });
+
+    adminTrigger.addEventListener("click", () => {
+      refreshWebhookUI();
+      renderLeadsTable();
+      adminModal.style.display = "flex";
+    });
+
+    closeModalBtn.addEventListener("click", () => {
+      adminModal.style.display = "none";
+    });
+
+    adminModal.addEventListener("click", (e) => {
+      if (e.target === adminModal) {
+        adminModal.style.display = "none";
+      }
+    });
+
+    // CSV Download
+    exportCsvBtn.addEventListener("click", () => {
+      const leads = getStoredLeads();
+      if (leads.length === 0) {
+        alert("No leads to export yet.");
+        return;
+      }
+      let csv = "Token,Name,Phone,Email,Timestamp\n";
+      leads.forEach(l => {
+        csv += `"${l.token}","${l.name.replace(/"/g, '""')}","${l.phone}","${l.email}","${l.timestamp}"\n`;
+      });
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `forward_waitlist_leads_${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // Clear data
+    clearLeadsBtn.addEventListener("click", () => {
+      if (confirm("Are you sure you want to clear local waitlist leads? Make sure you have exported first!")) {
+        localStorage.removeItem(STORAGE_KEY);
+        renderLeadsTable();
+        updateAdminCounter();
+      }
+    });
+
+    // Secret shortcut: Ctrl + Shift + L opens Leads Vault
+    window.addEventListener("keydown", (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "l") {
+        renderLeadsTable();
+        adminModal.style.display = "flex";
+      }
+    });
+  </script>
+</body>
+</html>
