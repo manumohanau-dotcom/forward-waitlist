@@ -707,105 +707,21 @@
     <!-- Footer -->
     <footer>
       <span>© 2026 FORWARD // HYBRID PERFORMANCE CENTRE. ALL RIGHTS RESERVED.</span>
-      <span class="admin-link" id="adminTrigger" title="Owner Lead Management">DATA VAULT [0]</span>
+      <span style="color: #484844; font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px;">OFFICIAL PROTOCOL // Q4 2026</span>
     </footer>
-  </div>
-
-  <!-- Admin Modal (For Owner to View & Export Leads) -->
-  <div class="modal-overlay" id="adminModal">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3 class="modal-title">Waitlist Leads Vault (Local Submissions)</h3>
-        <button class="btn-secondary" id="closeModalBtn" style="padding: 4px 10px;">✕</button>
-      </div>
-      
-      <!-- Google Sheets Auto-Sync Webhook Config -->
-      <div style="background: #191918; border: 1px solid var(--border); border-left: 3px solid var(--orange); padding: 14px 16px; margin-bottom: 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-          <span style="font-family: var(--font-mono); font-size: 11px; font-weight: 800; color: var(--orange); letter-spacing: 1.5px;">GOOGLE SHEETS LIVE AUTO-SYNC</span>
-          <span id="webhookStatusBadge" style="font-family: var(--font-mono); font-size: 11px; color: #777;">[ Local Storage Only ]</span>
-        </div>
-        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <input type="url" id="webhookInput" placeholder="Paste Google Apps Script Web App URL here (https://script.google.com/macros/s/.../exec)" style="flex: 1; min-width: 260px; height: 38px; background: #0E0E0D; border: 1px solid var(--border); color: var(--text-white); padding: 0 12px; font-size: 12px; font-family: var(--font-mono); outline: none;">
-          <button type="button" id="saveWebhookBtn" class="btn-secondary" style="height: 38px; padding: 0 14px; font-size: 11px;">Save URL</button>
-          <button type="button" id="testWebhookBtn" class="btn-secondary" style="height: 38px; padding: 0 14px; font-size: 11px; color: var(--orange); border-color: rgba(255,107,44,0.4);">Test Sync ⚡</button>
-        </div>
-      </div>
-      <div class="leads-table-wrap">
-        <table class="leads-table">
-          <thead>
-            <tr>
-              <th>TOKEN</th>
-              <th>NAME</th>
-              <th>PHONE</th>
-              <th>EMAIL</th>
-              <th>DATE</th>
-            </tr>
-          </thead>
-          <tbody id="leadsTableBody">
-            <!-- Dynamically populated -->
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-actions">
-        <button class="btn-secondary" id="clearLeadsBtn">Clear Data</button>
-        <button class="btn-export" id="exportCsvBtn">Download CSV ↓</button>
-      </div>
-    </div>
   </div>
 
   <script>
     // =========================================================================
-    // FORWARD WAITLIST INTAKE LOGIC
+    // FORWARD WAITLIST INTAKE & GOOGLE SHEETS LIVE SYNC
     // =========================================================================
 
-    // Primary Webhook configuration (Saved locally or hardcoded here)
-    const DEFAULT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxJp9KC0L0qHzlOR_LUDqrY8McukCVAeJkHLJP7eGT0FIkvqWUlGpzkslbjpQi9DmEs/exec"; 
-    const WEBHOOK_STORAGE_KEY = "fwd_google_webhook_url";
-    const STORAGE_KEY = "fwd_waitlist_leads_v1";
-
-    function getActiveWebhookUrl() {
-      const stored = localStorage.getItem(WEBHOOK_STORAGE_KEY);
-      if (stored && stored.trim() !== "") {
-        return stored;
-      }
-      return DEFAULT_WEBHOOK_URL;
-    }
+    const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxJp9KC0L0qHzlOR_LUDqrY8McukCVAeJkHLJP7eGT0FIkvqWUlGpzkslbjpQi9DmEs/exec";
 
     const form = document.getElementById("waitlistForm");
     const successState = document.getElementById("successState");
     const submitBtn = document.getElementById("submitBtn");
     const assignedTokenEl = document.getElementById("assignedToken");
-    const adminTrigger = document.getElementById("adminTrigger");
-    const adminModal = document.getElementById("adminModal");
-    const closeModalBtn = document.getElementById("closeModalBtn");
-    const leadsTableBody = document.getElementById("leadsTableBody");
-    const exportCsvBtn = document.getElementById("exportCsvBtn");
-    const clearLeadsBtn = document.getElementById("clearLeadsBtn");
-
-    // Fetch existing leads from localStorage
-    function getStoredLeads() {
-      try {
-        const data = localStorage.getItem(STORAGE_KEY);
-        return data ? JSON.parse(data) : [];
-      } catch (e) {
-        return [];
-      }
-    }
-
-    // Save leads to localStorage
-    function saveLeads(leads) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(leads));
-      updateAdminCounter();
-    }
-
-    function updateAdminCounter() {
-      const count = getStoredLeads().length;
-      adminTrigger.textContent = `DATA VAULT [${count}]`;
-    }
-
-    // Initialize counter
-    updateAdminCounter();
 
     // Form Submission
     form.addEventListener("submit", async function(e) {
@@ -860,9 +776,8 @@
       submitBtn.innerHTML = `<span>Securing Access...</span>`;
 
       // Generate realistic sequential token
-      const existing = getStoredLeads();
-      const queueNumber = 100 + existing.length + 1;
-      const token = `#FWD-${String(queueNumber).padStart(4, "0")}`;
+      const randomSeed = Math.floor(100 + Math.random() * 900);
+      const token = `#FWD-0${randomSeed}`;
 
       const leadData = {
         token: token,
@@ -872,181 +787,26 @@
         timestamp: new Date().toISOString()
       };
 
-      // 1. Save to local storage
-      existing.push(leadData);
-      saveLeads(existing);
-
-      // 2. Dispatch to Google Sheets / Webhook if configured
-      const activeWebhook = getActiveWebhookUrl();
-      if (activeWebhook && activeWebhook.trim() !== "") {
+      // Dispatch to Google Sheets
+      if (GOOGLE_SHEETS_WEBHOOK_URL) {
         try {
-          // Mode no-cors enables smooth Google Apps Script redirect execution without browser CORS rejection
-          await fetch(activeWebhook, {
+          await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
             method: "POST",
             mode: "no-cors",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(leadData)
           });
-          console.log("Lead successfully dispatched to Google Sheets Webhook.");
         } catch (err) {
-          console.warn("Webhook dispatch error:", err);
+          console.warn("Sync error:", err);
         }
       }
 
-      // Artificial short delay for high-end tactile feel
+      // Smooth transition to confirmation state
       setTimeout(() => {
         assignedTokenEl.textContent = token;
         form.style.display = "none";
         successState.style.display = "block";
-      }, 400);
-    });
-
-    // =========================================================================
-    // OWNER DATA VAULT (MODAL & CSV EXPORT)
-    // =========================================================================
-
-    function renderLeadsTable() {
-      const leads = getStoredLeads();
-      leadsTableBody.innerHTML = "";
-      if (leads.length === 0) {
-        leadsTableBody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#666;">No waitlist submissions yet.</td></tr>`;
-        return;
-      }
-      leads.forEach(l => {
-        const tr = document.createElement("tr");
-        const dateStr = new Date(l.timestamp).toLocaleDateString();
-        tr.innerHTML = `
-          <td style="color:var(--orange); font-weight:800;">${l.token}</td>
-          <td>${escapeHtml(l.name)}</td>
-          <td>${escapeHtml(l.phone)}</td>
-          <td>${escapeHtml(l.email)}</td>
-          <td style="color:#777;">${dateStr}</td>
-        `;
-        leadsTableBody.appendChild(tr);
-      });
-    }
-
-    function escapeHtml(text) {
-      const div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML;
-    }
-
-    // Webhook UI Wiring
-    const webhookInput = document.getElementById("webhookInput");
-    const saveWebhookBtn = document.getElementById("saveWebhookBtn");
-    const testWebhookBtn = document.getElementById("testWebhookBtn");
-    const webhookStatusBadge = document.getElementById("webhookStatusBadge");
-
-    function refreshWebhookUI() {
-      const currentUrl = getActiveWebhookUrl();
-      if (currentUrl && currentUrl.trim() !== "") {
-        webhookInput.value = currentUrl;
-        webhookStatusBadge.textContent = "● GOOGLE SHEETS SYNC ACTIVE";
-        webhookStatusBadge.style.color = "var(--orange)";
-      } else {
-        webhookInput.value = "";
-        webhookStatusBadge.textContent = "[ Local Storage Only ]";
-        webhookStatusBadge.style.color = "#777";
-      }
-    }
-
-    saveWebhookBtn.addEventListener("click", () => {
-      const url = webhookInput.value.trim();
-      if (url) {
-        localStorage.setItem(WEBHOOK_STORAGE_KEY, url);
-        alert("Google Sheets Webhook URL saved successfully!");
-      } else {
-        localStorage.removeItem(WEBHOOK_STORAGE_KEY);
-        alert("Webhook URL cleared. Submissions will be stored in local vault only.");
-      }
-      refreshWebhookUI();
-    });
-
-    testWebhookBtn.addEventListener("click", async () => {
-      const currentUrl = getActiveWebhookUrl();
-      if (!currentUrl) {
-        alert("Please paste your Google Apps Script Web App URL first and click Save!");
-        return;
-      }
-      testWebhookBtn.disabled = true;
-      testWebhookBtn.textContent = "Sending Test...";
-      
-      const testLead = {
-        token: "#FWD-TEST",
-        name: "Test Lead (Verification)",
-        phone: "+91 99999 00000",
-        email: "test@forward.fit",
-        timestamp: new Date().toISOString()
-      };
-
-      try {
-        await fetch(currentUrl, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(testLead)
-        });
-        alert("⚡ Test ping dispatched! Open your Google Sheet now to confirm the row was appended.");
-      } catch (e) {
-        alert("Error sending test: " + e.message);
-      } finally {
-        testWebhookBtn.disabled = false;
-        testWebhookBtn.textContent = "Test Sync ⚡";
-      }
-    });
-
-    adminTrigger.addEventListener("click", () => {
-      refreshWebhookUI();
-      renderLeadsTable();
-      adminModal.style.display = "flex";
-    });
-
-    closeModalBtn.addEventListener("click", () => {
-      adminModal.style.display = "none";
-    });
-
-    adminModal.addEventListener("click", (e) => {
-      if (e.target === adminModal) {
-        adminModal.style.display = "none";
-      }
-    });
-
-    // CSV Download
-    exportCsvBtn.addEventListener("click", () => {
-      const leads = getStoredLeads();
-      if (leads.length === 0) {
-        alert("No leads to export yet.");
-        return;
-      }
-      let csv = "Token,Name,Phone,Email,Timestamp\n";
-      leads.forEach(l => {
-        csv += `"${l.token}","${l.name.replace(/"/g, '""')}","${l.phone}","${l.email}","${l.timestamp}"\n`;
-      });
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `forward_waitlist_leads_${new Date().toISOString().slice(0,10)}.csv`;
-      a.click();
-      URL.revokeObjectURL(url);
-    });
-
-    // Clear data
-    clearLeadsBtn.addEventListener("click", () => {
-      if (confirm("Are you sure you want to clear local waitlist leads? Make sure you have exported first!")) {
-        localStorage.removeItem(STORAGE_KEY);
-        renderLeadsTable();
-        updateAdminCounter();
-      }
-    });
-
-    // Secret shortcut: Ctrl + Shift + L opens Leads Vault
-    window.addEventListener("keydown", (e) => {
-      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "l") {
-        renderLeadsTable();
-        adminModal.style.display = "flex";
-      }
+      }, 350);
     });
   </script>
 </body>
